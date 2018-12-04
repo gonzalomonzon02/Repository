@@ -59,7 +59,6 @@ public class adapterPerson extends RecyclerView.Adapter<adapterPerson.MyViewHold
             public void onClick(View v) {
                 ///DIALOG
                 Context context = myViewHolder.age.getContext();
-
                 AlertDialog dialog = new AlertDialog.Builder(context)
                         .setMessage("Hola")
                         .setPositiveButton("Ok", new DialogInterface.OnClickListener() {

@@ -2,5 +2,6 @@
     <string name="app_name">ServicesAndRecycler</string>
     <string name="title">Lista de clientes</string>
     <string name="show_view">Ver lista</string>
+    <string name="show_calendar">Ver calendario</string>
 
 </resources>

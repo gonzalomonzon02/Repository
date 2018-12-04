@@ -4,7 +4,16 @@ public class Person {
     private String name;
     private String lastName;
     private String id;
+    private String url;
     private int age;
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
     public String getName() {
         return name;

@@ -9,7 +9,7 @@ import retrofit2.http.GET;
 
 public interface PeopleService
 {
-    @GET("5c0565e93300005f00e8126b")
+    @GET("5c06c41d3300004d19ef2bf3")
     Call<ArrayList<Person>> getPersons();
 
 }

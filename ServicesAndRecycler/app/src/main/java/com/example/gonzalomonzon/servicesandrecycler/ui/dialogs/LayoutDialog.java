@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.example.gonzalomonzon.servicesandrecycler.R;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class LayoutDialog {
 
@@ -22,13 +23,15 @@ public class LayoutDialog {
         dialog.setCancelable(false);
         // dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.green(123123)));
         dialog.setContentView(R.layout.layout_dialog);
-        final CalendarView calendarView=dialog.findViewById(R.id.calendar);
+        final CalendarView calendarView = dialog.findViewById(R.id.calendar);
         dialog.show();
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                Toast.makeText(dialog.getContext(),String.valueOf(sdf.format(calendarView.getDate())),Toast.LENGTH_SHORT).show();
+                Toast.makeText(dialog.getContext(), String.valueOf(sdf.format(new Date(year - 1900, month, dayOfMonth))), Toast.LENGTH_SHORT).show();
+
+
                 dialog.dismiss();
             }
         });

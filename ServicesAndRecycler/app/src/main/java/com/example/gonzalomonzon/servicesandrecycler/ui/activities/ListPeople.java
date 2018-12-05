@@ -1,6 +1,7 @@
 package com.example.gonzalomonzon.servicesandrecycler.ui.activities;
 
 import android.app.Activity;
+import android.databinding.DataBindingUtil;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 
 import com.example.gonzalomonzon.servicesandrecycler.Model.Person;
 import com.example.gonzalomonzon.servicesandrecycler.R;
+import com.example.gonzalomonzon.servicesandrecycler.databinding.ActivityListPeopleBinding;
 import com.example.gonzalomonzon.servicesandrecycler.ui.adapters.adapterPerson;
 import com.example.gonzalomonzon.servicesandrecycler.controllers.ApiController;
 
@@ -30,10 +32,10 @@ public class ListPeople extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_people);
 
-        progressBar=findViewById(R.id.progress);
-        mRecyclerView=findViewById(R.id.recyclerListPeople);
+        ActivityListPeopleBinding mbinding= DataBindingUtil.setContentView(this,R.layout.activity_list_people);
+        progressBar=mbinding.progress;
+        mRecyclerView=mbinding.recyclerListPeople;
 
         mLayoutManager=new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -45,6 +47,7 @@ public class ListPeople extends AppCompatActivity {
                 progressBar.setVisibility(View.GONE);
                 if(response.isSuccessful()){
                     ArrayList<Person>persons=response.body();
+
                     mAdapter= new adapterPerson(me, persons);
                     mRecyclerView.setAdapter(mAdapter);
                     mRecyclerView.setVisibility(View.VISIBLE);

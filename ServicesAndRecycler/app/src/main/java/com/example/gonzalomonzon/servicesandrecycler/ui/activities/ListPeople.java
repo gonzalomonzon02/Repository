@@ -1,5 +1,6 @@
-package com.example.gonzalomonzon.servicesandrecycler.ui;
+package com.example.gonzalomonzon.servicesandrecycler.ui.activities;
 
+import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,7 +11,7 @@ import android.widget.Toast;
 
 import com.example.gonzalomonzon.servicesandrecycler.Model.Person;
 import com.example.gonzalomonzon.servicesandrecycler.R;
-import com.example.gonzalomonzon.servicesandrecycler.adapter.adapterPerson;
+import com.example.gonzalomonzon.servicesandrecycler.ui.adapters.adapterPerson;
 import com.example.gonzalomonzon.servicesandrecycler.controllers.ApiController;
 
 import java.util.ArrayList;
@@ -36,7 +37,7 @@ public class ListPeople extends AppCompatActivity {
 
         mLayoutManager=new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
-
+        final Activity me= this;
 
         ApiController.getPersons(new Callback<ArrayList<Person>>() {
             @Override
@@ -44,7 +45,7 @@ public class ListPeople extends AppCompatActivity {
                 progressBar.setVisibility(View.GONE);
                 if(response.isSuccessful()){
                     ArrayList<Person>persons=response.body();
-                    mAdapter= new adapterPerson(persons);
+                    mAdapter= new adapterPerson(me, persons);
                     mRecyclerView.setAdapter(mAdapter);
                     mRecyclerView.setVisibility(View.VISIBLE);
                 } else {

@@ -1,4 +1,4 @@
-package com.example.gonzalomonzon.servicesandrecycler.ui;
+package com.example.gonzalomonzon.servicesandrecycler.ui.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -25,7 +25,7 @@ public class SplashActivity extends Activity {
                 Intent intent = new Intent(SplashActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
-            };
+            }
         }, DURACION_SPLASH);
     }
 }

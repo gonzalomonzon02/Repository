@@ -1,4 +1,4 @@
-package com.example.gonzalomonzon.servicesandrecycler.adapter;
+package com.example.gonzalomonzon.servicesandrecycler.ui.adapters;
 
 
 import android.content.Context;
@@ -6,18 +6,17 @@ import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.gonzalomonzon.servicesandrecycler.Model.Person;
 import com.example.gonzalomonzon.servicesandrecycler.R;
-import com.example.gonzalomonzon.servicesandrecycler.ui.dialogs.DialogItems;
 
 import java.util.ArrayList;
 
@@ -25,9 +24,11 @@ public class adapterPerson extends RecyclerView.Adapter<adapterPerson.MyViewHold
 
     public ArrayList<Person> list;
 
-    public adapterPerson(ArrayList<Person> listPer) {
+    public adapterPerson(Context context, ArrayList<Person> listPer) {
+        this.context = context;
         list = listPer;
     }
+    private Context context;
 
     @NonNull
     @Override
@@ -42,17 +43,22 @@ public class adapterPerson extends RecyclerView.Adapter<adapterPerson.MyViewHold
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, int i) {
 
-        final String name, lastName, id;
+        final String url,name, lastName, id;
         int age;
         name = list.get(i).getName();
         lastName = list.get(i).getLastName();
         id = list.get(i).getId();
         age = list.get(i).getAge();
 
+        url=list.get(i).getUrl();
+
         myViewHolder.id.setText(id);
         myViewHolder.lastName.setText(lastName);
         myViewHolder.age.setText(String.valueOf(age));
         myViewHolder.name.setText(name);
+
+        //library drawable image
+        Glide.with(context).load(url).into(myViewHolder.imageView);
 
         myViewHolder.name.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,7 +90,7 @@ public class adapterPerson extends RecyclerView.Adapter<adapterPerson.MyViewHold
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-
+        ImageView imageView;
         TextView name;
         TextView lastName;
         TextView id;
@@ -94,11 +100,14 @@ public class adapterPerson extends RecyclerView.Adapter<adapterPerson.MyViewHold
         public MyViewHolder(View view) {
             //aca es donde se instancia cada control que se va a repetir
             super(view);
+            imageView=view.findViewById(R.id.imageView);
             name = view.findViewById(R.id.name);
             lastName = view.findViewById(R.id.last_name);
             id = view.findViewById(R.id.id);
             age = view.findViewById(R.id.age);
+
             layout=view.findViewById(R.id.rectangle);
+
         }
 
     }

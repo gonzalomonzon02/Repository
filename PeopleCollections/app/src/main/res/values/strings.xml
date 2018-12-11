@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">PeopleCollections</string>
-
+    <string name="preference_file_key">com.example.gonzalomonzon.peoplecollections.PREFERENCE_FILE_KEY</string>
 </resources>

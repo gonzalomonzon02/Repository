@@ -1,15 +1,21 @@
 package com.example.gonzalomonzon.peoplecollections;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.gonzalomonzon.peoplecollections.databinding.ActivityMainBinding;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -27,8 +33,7 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView tvName,tvLastName,tvAge;
-    ImageView imageView;
+    ActivityMainBinding mainBinding;
     FirebaseFirestore db;
 
     @Override
@@ -36,14 +41,28 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         db = FirebaseFirestore.getInstance();
-
+        mainBinding=DataBindingUtil.setContentView(this,R.layout.activity_main);
         getDocument();
-        tvName=findViewById(R.id.main_name);
-        tvLastName=findViewById(R.id.main_lastName);
-        tvAge=findViewById(R.id.main_age);
-        imageView=findViewById(R.id.imageView);
+
         getStorageImage();
 
+        mainBinding.btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logout();
+            }
+        });
+
+    }
+    public void logout(){
+        Context context=getApplicationContext();
+        final SharedPreferences sharedPref = context.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor=sharedPref.edit();
+        editor.putString("key_user_name",null);
+        editor.putString("key_user_key",null);
+        editor.commit();
+        Intent intent=new Intent(this,LoginActivity.class);
+        startActivity(intent);
     }
     public void getStorageImage(){
 
@@ -53,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         String s="https://firebasestorage.googleapis.com/v0/b/myfirstproyectinfirebase.appspot.com/o/user.gif?alt=media&token=230e37ed-cd75-4ce8-ad6f-2f3e1237cb0f";
 
 
-        GlideApp.with(this).load(storageReference).into(imageView);
+        GlideApp.with(this).load(storageReference).into(mainBinding.imageView);
 
 
     }
@@ -66,9 +85,10 @@ public class MainActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
-                        tvName.setText(document.get("name").toString());
-                        tvLastName.setText(document.get("lastName").toString());
-                        tvAge.setText(document.get("age").toString());
+
+                        mainBinding.mainName.setText(document.get("name").toString());
+                        mainBinding.mainLastName.setText(document.get("lastName").toString());
+                        mainBinding.mainAge.setText(document.get("age").toString());
 
                     } else {
                         Log.d("", "No such document");

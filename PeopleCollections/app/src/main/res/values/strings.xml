@@ -1,4 +1,15 @@
 <resources>
     <string name="app_name">PeopleCollections</string>
     <string name="preference_file_key">com.example.gonzalomonzon.peoplecollections.PREFERENCE_FILE_KEY</string>
+
+    <string-array name="aray_string_spinner">
+        <item>Mercury</item>
+        <item>Venus</item>
+        <item>Earth</item>
+        <item>Mars</item>
+        <item>Jupiter</item>
+        <item>Saturn</item>
+        <item>Uranus</item>
+        <item>Neptune</item>
+    </string-array>
 </resources>

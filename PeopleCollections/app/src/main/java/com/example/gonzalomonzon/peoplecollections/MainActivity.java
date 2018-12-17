@@ -7,6 +7,8 @@ import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -52,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
                 logout();
             }
         });
+        fragment();
 
     }
     public void logout(){
@@ -72,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
         String s="https://firebasestorage.googleapis.com/v0/b/myfirstproyectinfirebase.appspot.com/o/user.gif?alt=media&token=230e37ed-cd75-4ce8-ad6f-2f3e1237cb0f";
 
 
-        GlideApp.with(this).load(storageReference).into(mainBinding.imageView);
+        //GlideApp.with(this).load(storageReference).into(mainBinding.imageView);
 
 
     }
@@ -169,5 +172,16 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 */
+    }
+    public void fragment(){
+        TabLayout tabLayout=findViewById(R.id.tabLayout);
+        ViewPager viewPager=findViewById(R.id.viewPager);
+        ViewPagerAdapter viewPagerAdapter=new ViewPagerAdapter(getSupportFragmentManager());
+        viewPagerAdapter.addFragment(new FragmentOne(),"ImageView");
+        viewPagerAdapter.addFragment(new FragmentTwo(),"TextView");
+        viewPagerAdapter.addFragment(new FragmentThree(),"Button");
+
+        viewPager.setAdapter(viewPagerAdapter);
+        tabLayout.setupWithViewPager(viewPager);
     }
 }
